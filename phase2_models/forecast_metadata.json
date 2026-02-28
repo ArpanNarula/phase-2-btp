@@ -1,0 +1,33 @@
+{
+  "lookback_hours": 24,
+  "n_clusters": 8,
+  "cluster_columns": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+  ],
+  "sparse_hour_weighting": {
+    "enabled": true,
+    "power": 1.0,
+    "min_weight": 0.33777791261672974,
+    "max_weight": 3.54666805267334,
+    "mean_weight": 1.0
+  },
+  "model_type": "sklearn_flat",
+  "fallback_reason": "No module named 'tensorflow'",
+  "validation_samples": 682,
+  "best_validation": {
+    "epoch": 1,
+    "val_mae": 0.9248266481256507,
+    "val_rmse": 1.344733939412281
+  },
+  "eval_mae": 0.8728835233561985,
+  "eval_rmse": 1.2672768232469593,
+  "train_samples": 2725,
+  "test_samples": 852
+}

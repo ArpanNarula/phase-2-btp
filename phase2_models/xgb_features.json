@@ -1,0 +1,10 @@
+[
+  "hour",
+  "weekday",
+  "hour_sin",
+  "hour_cos",
+  "distance_km",
+  "passenger_count",
+  "traffic_proxy",
+  "weather_temp_c"
+]

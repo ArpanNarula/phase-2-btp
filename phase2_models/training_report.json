@@ -1,0 +1,119 @@
+{
+  "forecasting": {
+    "lookback_hours": 24,
+    "n_clusters": 8,
+    "cluster_columns": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "sparse_hour_weighting": {
+      "enabled": true,
+      "power": 1.0,
+      "min_weight": 0.33777791261672974,
+      "max_weight": 3.54666805267334,
+      "mean_weight": 1.0
+    },
+    "model_type": "sklearn_flat",
+    "fallback_reason": "No module named 'tensorflow'",
+    "validation_samples": 682,
+    "best_validation": {
+      "epoch": 1,
+      "val_mae": 0.9248266481256507,
+      "val_rmse": 1.344733939412281
+    },
+    "eval_mae": 0.8728835233561985,
+    "eval_rmse": 1.2672768232469593,
+    "train_samples": 2725,
+    "test_samples": 852
+  },
+  "pricing": {
+    "model_type": "sklearn_gbr",
+    "fallback_reason": "No module named 'xgboost'",
+    "top_features": [
+      {
+        "feature": "distance_km",
+        "importance": 0.5856900100958483,
+        "importance_normalized": 0.5856900100958483
+      },
+      {
+        "feature": "traffic_proxy",
+        "importance": 0.37881535185196274,
+        "importance_normalized": 0.37881535185196274
+      },
+      {
+        "feature": "hour",
+        "importance": 0.025320066064017443,
+        "importance_normalized": 0.025320066064017443
+      },
+      {
+        "feature": "weekday",
+        "importance": 0.0099739981482909,
+        "importance_normalized": 0.0099739981482909
+      },
+      {
+        "feature": "hour_cos",
+        "importance": 0.00010038847616220786,
+        "importance_normalized": 0.00010038847616220786
+      }
+    ],
+    "cross_validation": {
+      "enabled": true,
+      "n_splits": 5,
+      "fold_metrics": [
+        {
+          "fold": 1,
+          "mae": 31.734766178392306,
+          "rmse": 90.45179547277068,
+          "r2": 0.9820805795528418
+        },
+        {
+          "fold": 2,
+          "mae": 31.777492263498164,
+          "rmse": 77.58475158291554,
+          "r2": 0.9849904281577541
+        },
+        {
+          "fold": 3,
+          "mae": 35.78122918726717,
+          "rmse": 434.33716259050675,
+          "r2": 0.8235487628310867
+        },
+        {
+          "fold": 4,
+          "mae": 32.83426064473714,
+          "rmse": 113.25969813357372,
+          "r2": 0.9756747961210873
+        },
+        {
+          "fold": 5,
+          "mae": 35.43533985364987,
+          "rmse": 212.9198603614497,
+          "r2": 0.8912346340277184
+        }
+      ],
+      "mean": {
+        "mae": 33.51261762550893,
+        "rmse": 185.71065362824328,
+        "r2": 0.9315058401380977
+      },
+      "std": {
+        "mae": 1.7592636623314835,
+        "rmse": 133.0940145852575,
+        "r2": 0.06425854445501472
+      }
+    },
+    "eval_mae": 33.49712229918138,
+    "eval_rmse": 79.73704692079181,
+    "eval_r2": 0.9848514096495434,
+    "train_samples": 39306,
+    "test_samples": 9827
+  },
+  "nrows_used": 50000,
+  "records_after_cleaning": 49133
+}

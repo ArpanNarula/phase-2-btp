@@ -1,0 +1,11 @@
+{
+  "model_type": "sklearn_flat",
+  "note": "Per-epoch validation logging is unavailable for sklearn fallback.",
+  "epochs": [
+    {
+      "epoch": 1,
+      "val_mae": 0.9248266481256507,
+      "val_rmse": 1.344733939412281
+    }
+  ]
+}
