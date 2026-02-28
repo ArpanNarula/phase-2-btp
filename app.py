@@ -5,6 +5,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 from sklearn.cluster import KMeans
 
@@ -392,25 +393,42 @@ def run_phase2_module(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict)
 
             recent = hourly_demand.tail(24)
             if not recent.empty:
-                heat_df = recent.T
-                heat_df.index = [f"Cluster {idx}" for idx in heat_df.index]
-                fig_heat = px.imshow(
-                    heat_df,
-                    labels={"x": "Recent Hour", "y": "Cluster", "color": "Trips"},
-                    x=[ts.strftime("%m-%d %H:%M") for ts in recent.index],
-                    color_continuous_scale="Viridis",
-                    aspect="auto",
-                    title="Last 24 Hours: Historical Demand Matrix",
+                heat_df = recent.T.copy().reindex(range(n_clusters))
+                heat_df.index = [f"Cluster {idx}" for idx in range(n_clusters)]
+                x_labels = [ts.strftime("%d %b %H:%M") for ts in recent.index]
+                zmax = max(1.0, float(np.nanmax(heat_df.values)))
+
+                fig_heat = go.Figure(
+                    data=go.Heatmap(
+                        z=heat_df.values,
+                        x=x_labels,
+                        y=heat_df.index.tolist(),
+                        colorscale="Turbo",
+                        zmin=0,
+                        zmax=zmax,
+                        colorbar=dict(title="Trips"),
+                        hovertemplate="Cluster: %{y}<br>Time: %{x}<br>Trips: %{z}<extra></extra>",
+                    )
                 )
+                fig_heat.update_layout(
+                    title="Last 24 Hours: Historical Demand Heatmap (All Clusters)",
+                    template="plotly_dark",
+                    xaxis_title="Recent Hour",
+                    yaxis_title="Cluster",
+                    height=460,
+                    margin=dict(l=10, r=10, t=50, b=10),
+                )
+                fig_heat.update_xaxes(tickangle=-35)
                 st.plotly_chart(fig_heat, use_container_width=True)
 
-            st.markdown("**Top 3 Rebalancing Recommendations**")
+            st.markdown("### Top 3 Clusters by Predicted Demand")
+            st.caption("This table intentionally shows only the top 3 forecasted clusters.")
             top_reco = pred_df.head(3)[["rank", "cluster", "predicted_demand"]]
             st.dataframe(top_reco, use_container_width=True, hide_index=True)
 
-            st.markdown("**All Cluster Forecasts (not just top 3)**")
-            all_forecasts = pred_df[["rank", "cluster", "predicted_demand"]]
-            st.dataframe(all_forecasts, use_container_width=True, hide_index=True)
+            with st.expander("Show all cluster forecasts"):
+                all_forecasts = pred_df[["rank", "cluster", "predicted_demand"]]
+                st.dataframe(all_forecasts, use_container_width=True, hide_index=True)
 
     with tabs[1]:
         st.markdown("Trip-duration regression + demand-ratio surge pricing simulation.")
