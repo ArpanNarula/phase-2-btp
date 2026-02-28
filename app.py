@@ -372,6 +372,7 @@ def run_phase2_module(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict)
                     "predicted_demand": forecast,
                 }
             ).sort_values("predicted_demand", ascending=False)
+            pred_df["rank"] = np.arange(1, len(pred_df) + 1)
 
             col1, col2, col3 = st.columns(3)
             top_cluster = pred_df.iloc[0]
@@ -403,8 +404,13 @@ def run_phase2_module(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict)
                 )
                 st.plotly_chart(fig_heat, use_container_width=True)
 
-            top_reco = pred_df.head(3)[["cluster", "predicted_demand"]]
-            st.dataframe(top_reco, use_container_width=True)
+            st.markdown("**Top 3 Rebalancing Recommendations**")
+            top_reco = pred_df.head(3)[["rank", "cluster", "predicted_demand"]]
+            st.dataframe(top_reco, use_container_width=True, hide_index=True)
+
+            st.markdown("**All Cluster Forecasts (not just top 3)**")
+            all_forecasts = pred_df[["rank", "cluster", "predicted_demand"]]
+            st.dataframe(all_forecasts, use_container_width=True, hide_index=True)
 
     with tabs[1]:
         st.markdown("Trip-duration regression + demand-ratio surge pricing simulation.")
