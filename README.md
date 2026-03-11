@@ -9,6 +9,8 @@
 
 ## Project Repository
 - **GitHub:** [https://github.com/ArpanNarula/phase-2-btp](https://github.com/ArpanNarula/phase-2-btp)
+- **Deployed App:** [https://phase-2-btp-aaa2cscbkmvdhfbocgb5zk.streamlit.app](https://phase-2-btp-aaa2cscbkmvdhfbocgb5zk.streamlit.app)
+- **Direct Phase 2 View:** [https://phase-2-btp-aaa2cscbkmvdhfbocgb5zk.streamlit.app/#phase-2-predictive-intelligence](https://phase-2-btp-aaa2cscbkmvdhfbocgb5zk.streamlit.app/#phase-2-predictive-intelligence)
 
 ## Project Overview
 This is our intelligent fleet allocation and decision-support system built as a two-phase project. The dashboard integrates live operations monitoring, demand forecasting, pricing intelligence, and dispatch simulation.
