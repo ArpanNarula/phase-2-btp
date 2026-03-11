@@ -40,36 +40,22 @@ st.markdown(
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Serif:wght@600;700&display=swap');
 
 :root {
-  --bg-1: #f7fafc;
-  --bg-2: #edf4ff;
+  --bg-1: #f4f7fb;
+  --bg-2: #edf2f7;
   --card: #ffffff;
-  --ink: #102a43;
-  --muted: #486581;
-  --accent: #1565c0;
-  --accent-soft: #dbeafe;
-  --ok: #0f9d58;
-  --line: #d9e2ec;
+  --ink: #0f172a;
+  --muted: #475569;
+  --accent: #1d4ed8;
+  --line: #cbd5e1;
 }
 
-html, body, [class*="css"]  {
+html, body, [class*="css"] {
   font-family: "Manrope", sans-serif;
   color: var(--ink);
 }
 
 .stApp {
-  background:
-    radial-gradient(1100px 500px at 12% -10%, #dbeafe 0%, transparent 60%),
-    radial-gradient(900px 450px at 100% 0%, #e0f2fe 0%, transparent 55%),
-    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
-}
-
-section.main > div {
-  animation: fadeSlide 320ms ease-out;
-}
-
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
 }
 
 .block-container {
@@ -84,26 +70,29 @@ h1, h2, h3 {
 div[data-testid="stMetric"] {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 0.8rem 0.9rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
 div[data-testid="stMetricLabel"] {
-  color: var(--muted);
+  color: var(--muted) !important;
+  opacity: 1 !important;
 }
 
 div[data-testid="stMetricValue"] {
   color: var(--accent);
   font-size: 1.55rem;
+  opacity: 1 !important;
 }
 
 .hero {
-  background: linear-gradient(110deg, #0b3c5d 0%, #1565c0 60%, #1d4ed8 100%);
-  border-radius: 18px;
+  background: linear-gradient(110deg, #0b3c5d 0%, #1d4ed8 100%);
+  border-radius: 14px;
   padding: 1.2rem 1.3rem;
   color: #f8fbff;
-  border: 1px solid #1b5ea7;
-  box-shadow: 0 14px 32px rgba(17, 56, 94, 0.22);
+  border: 1px solid #1e40af;
+  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
   margin-bottom: 0.9rem;
 }
 
@@ -125,7 +114,7 @@ div[data-testid="stMetricValue"] {
   margin-top: 0.55rem;
   padding: 0.27rem 0.62rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
@@ -138,7 +127,35 @@ div[data-testid="stMetricValue"] {
 }
 
 .caption {
-  color: var(--muted);
+  color: var(--muted) !important;
+}
+
+/* Force high-contrast text for Streamlit widgets */
+.stMarkdown, .stMarkdown p, .stCaption, label, .stText, p, span {
+  color: var(--ink) !important;
+  opacity: 1 !important;
+}
+
+button[role="tab"] {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+
+button[role="tab"][aria-selected="true"] {
+  color: #0f172a !important;
+}
+
+/* Prevent washed-out stale-frame effect */
+.stale-element, .stale-element * {
+  opacity: 1 !important;
+}
+
+/* Keep sidebar dark and readable */
+[data-testid="stSidebar"] {
+  background: #111827 !important;
+}
+[data-testid="stSidebar"] * {
+  color: #e5e7eb !important;
 }
 </style>
 """,
