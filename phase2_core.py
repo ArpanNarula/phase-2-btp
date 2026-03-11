@@ -237,7 +237,9 @@ def add_cluster_labels(df: pd.DataFrame, kmeans_model) -> pd.DataFrame:
 def add_dropoff_cluster_labels(df: pd.DataFrame, kmeans_model) -> pd.DataFrame:
     """Assign dropoff cluster labels for OD travel-time calibration."""
     df_clustered = df.copy()
-    coords = df_clustered[["dropoff_latitude", "dropoff_longitude"]]
+    # KMeans was trained with pickup feature names; keep the same schema for predict().
+    coords = df_clustered[["dropoff_latitude", "dropoff_longitude"]].copy()
+    coords.columns = ["pickup_latitude", "pickup_longitude"]
     df_clustered["dropoff_cluster"] = kmeans_model.predict(coords)
     return df_clustered
 
