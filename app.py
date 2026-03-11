@@ -40,39 +40,71 @@ st.markdown(
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Serif:wght@600;700&display=swap');
 
 :root {
-  --bg-1: #f4f7fb;
-  --bg-2: #edf2f7;
-  --card: #ffffff;
-  --ink: #0f172a;
-  --muted: #475569;
-  --accent: #1d4ed8;
-  --line: #cbd5e1;
+  --bg-1: #0b1220;
+  --bg-2: #111827;
+  --surface: #0f172a;
+  --card: #111d34;
+  --ink: #e5edf8;
+  --muted: #9fb2cc;
+  --accent: #34d399;
+  --accent-2: #38bdf8;
+  --line: #22314a;
 }
 
 html, body, [class*="css"] {
   font-family: "Manrope", sans-serif;
-  color: var(--ink);
+  color: var(--ink) !important;
 }
 
 .stApp {
-  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  background:
+    radial-gradient(1400px 600px at -15% -20%, #1f2937 0%, transparent 55%),
+    radial-gradient(1000px 500px at 120% -10%, #0b1e35 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
 }
 
 .block-container {
-  padding-top: 1.1rem;
+  padding-top: 1rem;
 }
 
 h1, h2, h3 {
   font-family: "IBM Plex Serif", serif;
-  color: var(--ink);
+  color: #f8fbff !important;
+}
+
+[data-testid="stHeader"] {
+  background: #070d18 !important;
+  border-bottom: 1px solid #182338;
+}
+
+[data-testid="stToolbar"] {
+  right: 0.7rem;
+}
+
+[data-testid="stSidebar"] {
+  background: linear-gradient(180deg, #0a1020 0%, #0f172a 100%) !important;
+  border-right: 1px solid #182338;
+}
+
+[data-testid="stSidebar"] * {
+  color: #d7e2f1 !important;
+}
+
+[data-testid="stSidebar"] .stRadio > div {
+  gap: 0.15rem;
+}
+
+[data-testid="stSidebar"] .stSlider label,
+[data-testid="stSidebar"] .stRadio label {
+  color: #aac0de !important;
 }
 
 div[data-testid="stMetric"] {
-  background: var(--card);
+  background: linear-gradient(180deg, #102038 0%, #0e1b2f 100%);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 0.8rem 0.9rem;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 10px 24px rgba(3, 10, 22, 0.26);
 }
 
 div[data-testid="stMetricLabel"] {
@@ -81,18 +113,18 @@ div[data-testid="stMetricLabel"] {
 }
 
 div[data-testid="stMetricValue"] {
-  color: var(--accent);
+  color: #f8fbff !important;
   font-size: 1.55rem;
   opacity: 1 !important;
 }
 
 .hero {
-  background: linear-gradient(110deg, #0b3c5d 0%, #1d4ed8 100%);
+  background: linear-gradient(110deg, #0f2742 0%, #12345a 45%, #1d4ed8 100%);
   border-radius: 14px;
   padding: 1.2rem 1.3rem;
-  color: #f8fbff;
-  border: 1px solid #1e40af;
-  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+  color: #f8fbff !important;
+  border: 1px solid #244675;
+  box-shadow: 0 14px 28px rgba(6, 16, 36, 0.35);
   margin-bottom: 0.9rem;
 }
 
@@ -119,43 +151,54 @@ div[data-testid="stMetricValue"] {
 }
 
 .sidebar-card {
-  background: #ffffff;
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, #102038 0%, #0e1b2f 100%);
+  border: 1px solid #22314a;
   border-radius: 12px;
   padding: 0.7rem 0.8rem;
   margin-bottom: 0.7rem;
 }
 
 .caption {
-  color: var(--muted) !important;
+  color: #aac0de !important;
 }
 
-/* Force high-contrast text for Streamlit widgets */
-.stMarkdown, .stMarkdown p, .stCaption, label, .stText, p, span {
-  color: var(--ink) !important;
-  opacity: 1 !important;
+.stMarkdown p, .stCaption, label {
+  color: #d8e4f2 !important;
 }
 
 button[role="tab"] {
-  color: #334155 !important;
+  color: #8ca4c5 !important;
   font-weight: 600 !important;
+  border-bottom: 2px solid transparent !important;
 }
 
 button[role="tab"][aria-selected="true"] {
-  color: #0f172a !important;
+  color: #e7effa !important;
+  border-bottom: 2px solid #38bdf8 !important;
 }
 
-/* Prevent washed-out stale-frame effect */
-.stale-element, .stale-element * {
+[data-testid="stDataFrame"] {
+  border: 1px solid #22314a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+[data-testid="stExpander"] {
+  border: 1px solid #22314a !important;
+  border-radius: 10px !important;
+  background: #0f1b2f !important;
+}
+
+div[data-testid="stAlert"] {
+  border: 1px solid #2b4467;
+}
+
+/* Prevent dimmed stale screen on reruns */
+[data-stale="true"] {
   opacity: 1 !important;
 }
-
-/* Keep sidebar dark and readable */
-[data-testid="stSidebar"] {
-  background: #111827 !important;
-}
-[data-testid="stSidebar"] * {
-  color: #e5e7eb !important;
+[data-stale="true"] * {
+  opacity: 1 !important;
 }
 </style>
 """,
@@ -309,11 +352,13 @@ def infer_next_hour_demand(
 def _standard_layout(fig, title: str, height: int = 430):
     fig.update_layout(
         title=title,
-        template="plotly_white",
+        template="plotly_dark",
+        font=dict(color="#d7e2f1"),
+        title_font=dict(color="#f8fbff"),
         height=height,
         margin=dict(l=20, r=20, t=60, b=20),
-        paper_bgcolor="rgba(255,255,255,0)",
-        plot_bgcolor="rgba(255,255,255,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
     )
     return fig
 
@@ -345,7 +390,7 @@ def run_live_operations(df: pd.DataFrame, model: KMeans | None):
             size="passenger_count",
             zoom=11,
             height=610,
-            mapbox_style="carto-positron",
+            mapbox_style="carto-darkmatter",
             color_continuous_scale="Teal",
         )
         _standard_layout(fig, f"AI Demand Zones at {selected_hour:02d}:00", height=610)
@@ -358,7 +403,7 @@ def run_live_operations(df: pd.DataFrame, model: KMeans | None):
             z="passenger_count",
             radius=10,
             zoom=11,
-            mapbox_style="carto-positron",
+            mapbox_style="carto-darkmatter",
             height=610,
         )
         _standard_layout(fig, f"Demand Density at {selected_hour:02d}:00", height=610)
@@ -387,7 +432,7 @@ def run_research_lab(df: pd.DataFrame):
             color="kmeans",
             zoom=10,
             height=500,
-            mapbox_style="carto-positron",
+            mapbox_style="carto-darkmatter",
         )
         _standard_layout(fig_k, "K-Means Partitions", height=500)
         st.plotly_chart(fig_k, use_container_width=True)
@@ -407,7 +452,7 @@ def run_research_lab(df: pd.DataFrame):
                 color="hdbscan",
                 zoom=10,
                 height=500,
-                mapbox_style="carto-positron",
+                mapbox_style="carto-darkmatter",
             )
             _standard_layout(fig_h, f"HDBSCAN Hotspots (Noise={noise_points})", height=500)
             st.plotly_chart(fig_h, use_container_width=True)
