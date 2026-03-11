@@ -6,5 +6,9 @@
   "distance_km",
   "passenger_count",
   "traffic_proxy",
-  "weather_temp_c"
+  "weather_temp_c",
+  "precipitation_mm",
+  "is_holiday",
+  "event_intensity",
+  "is_weekend"
 ]

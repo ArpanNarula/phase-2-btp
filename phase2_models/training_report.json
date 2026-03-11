@@ -12,25 +12,50 @@
       "6",
       "7"
     ],
+    "input_feature_count": 13,
+    "input_feature_names": [
+      "cluster_0",
+      "cluster_1",
+      "cluster_2",
+      "cluster_3",
+      "cluster_4",
+      "cluster_5",
+      "cluster_6",
+      "cluster_7",
+      "weather_temp_c",
+      "precipitation_mm",
+      "is_holiday",
+      "event_intensity",
+      "is_weekend"
+    ],
+    "exogenous_features": [
+      "weather_temp_c",
+      "precipitation_mm",
+      "is_holiday",
+      "event_intensity",
+      "is_weekend"
+    ],
     "sparse_hour_weighting": {
       "enabled": true,
-      "power": 1.0,
-      "min_weight": 0.33777791261672974,
-      "max_weight": 3.54666805267334,
+      "power": 1.2,
+      "min_weight": 0.1796785444021225,
+      "max_weight": 6.936803340911865,
       "mean_weight": 1.0
     },
     "model_type": "sklearn_flat",
     "fallback_reason": "No module named 'tensorflow'",
-    "validation_samples": 682,
+    "validation_samples": 695,
     "best_validation": {
       "epoch": 1,
-      "val_mae": 0.9248266481256507,
-      "val_rmse": 1.344733939412281
+      "val_mae": 0.8928535456814299,
+      "val_rmse": 1.302679106068621
     },
-    "eval_mae": 0.8728835233561985,
-    "eval_rmse": 1.2672768232469593,
-    "train_samples": 2725,
-    "test_samples": 852
+    "eval_mae": 0.8453149822547941,
+    "eval_rmse": 1.2305259918098659,
+    "worst_cluster_rmse": 1.9046187394093483,
+    "train_samples": 2780,
+    "test_samples": 869,
+    "cluster_metrics_file": "forecast_cluster_metrics.json"
   },
   "pricing": {
     "model_type": "sklearn_gbr",
@@ -38,28 +63,28 @@
     "top_features": [
       {
         "feature": "distance_km",
-        "importance": 0.5856900100958483,
-        "importance_normalized": 0.5856900100958483
+        "importance": 0.5081453065364493,
+        "importance_normalized": 0.5081453065364493
       },
       {
         "feature": "traffic_proxy",
-        "importance": 0.37881535185196274,
-        "importance_normalized": 0.37881535185196274
+        "importance": 0.37820173186943234,
+        "importance_normalized": 0.37820173186943234
       },
       {
-        "feature": "hour",
-        "importance": 0.025320066064017443,
-        "importance_normalized": 0.025320066064017443
+        "feature": "precipitation_mm",
+        "importance": 0.04399897995702258,
+        "importance_normalized": 0.04399897995702258
       },
       {
-        "feature": "weekday",
-        "importance": 0.0099739981482909,
-        "importance_normalized": 0.0099739981482909
+        "feature": "weather_temp_c",
+        "importance": 0.029165520597733387,
+        "importance_normalized": 0.029165520597733387
       },
       {
         "feature": "hour_cos",
-        "importance": 0.00010038847616220786,
-        "importance_normalized": 0.00010038847616220786
+        "importance": 0.018040551002458875,
+        "importance_normalized": 0.018040551002458875
       }
     ],
     "cross_validation": {
@@ -68,52 +93,60 @@
       "fold_metrics": [
         {
           "fold": 1,
-          "mae": 31.734766178392306,
-          "rmse": 90.45179547277068,
-          "r2": 0.9820805795528418
+          "mae": 31.92172717273238,
+          "rmse": 92.36008453791835,
+          "r2": 0.9813165007492308
         },
         {
           "fold": 2,
-          "mae": 31.777492263498164,
-          "rmse": 77.58475158291554,
-          "r2": 0.9849904281577541
+          "mae": 31.721720495169002,
+          "rmse": 77.67241203383765,
+          "r2": 0.9849564913565686
         },
         {
           "fold": 3,
-          "mae": 35.78122918726717,
-          "rmse": 434.33716259050675,
-          "r2": 0.8235487628310867
+          "mae": 35.76272054378057,
+          "rmse": 432.4962290144597,
+          "r2": 0.8250413664121177
         },
         {
           "fold": 4,
-          "mae": 32.83426064473714,
-          "rmse": 113.25969813357372,
-          "r2": 0.9756747961210873
+          "mae": 32.83389570097253,
+          "rmse": 113.25957122778988,
+          "r2": 0.9756748506331051
         },
         {
           "fold": 5,
-          "mae": 35.43533985364987,
-          "rmse": 212.9198603614497,
-          "r2": 0.8912346340277184
+          "mae": 34.65538350425889,
+          "rmse": 146.21826991159887,
+          "r2": 0.9487065911874499
         }
       ],
       "mean": {
-        "mae": 33.51261762550893,
-        "rmse": 185.71065362824328,
-        "r2": 0.9315058401380977
+        "mae": 33.37908948338268,
+        "rmse": 172.40131334512085,
+        "r2": 0.9431391600676944
       },
       "std": {
-        "mae": 1.7592636623314835,
-        "rmse": 133.0940145852575,
-        "r2": 0.06425854445501472
+        "mae": 1.5797871114674296,
+        "rmse": 132.07030372779857,
+        "r2": 0.060403401980011207
       }
     },
-    "eval_mae": 33.49712229918138,
-    "eval_rmse": 79.73704692079181,
-    "eval_r2": 0.9848514096495434,
+    "eval_mae": 33.52773955523283,
+    "eval_rmse": 79.8419314405691,
+    "eval_r2": 0.9848115311323894,
+    "holdout_metrics_file": "pricing_holdout_metrics.json",
     "train_samples": 39306,
     "test_samples": 9827
   },
+  "forecast_exogenous_features": [
+    "weather_temp_c",
+    "precipitation_mm",
+    "is_holiday",
+    "event_intensity",
+    "is_weekend"
+  ],
   "nrows_used": 50000,
   "records_after_cleaning": 49133
 }

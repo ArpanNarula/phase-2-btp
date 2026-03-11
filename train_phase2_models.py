@@ -4,10 +4,12 @@ Generates:
 - phase2_models/forecast_metadata.json
 - phase2_models/lstm_demand_forecaster.keras OR .pkl (fallback)
 - phase2_models/forecast_validation_metrics.json
+- phase2_models/forecast_cluster_metrics.json
 - phase2_models/demand_baseline.json
 - phase2_models/xgb_pricing_model.json OR skl_pricing_model.pkl
 - phase2_models/xgb_features.json
 - phase2_models/pricing_feature_importance.json
+- phase2_models/pricing_holdout_metrics.json
 - phase2_models/training_report.json
 """
 
@@ -27,9 +29,11 @@ from sklearn.model_selection import KFold
 from sklearn.multioutput import MultiOutputRegressor
 
 from phase2_core import (
+    FORECAST_EXOGENOUS_COLUMNS,
     PRICING_FEATURE_COLUMNS,
     add_cluster_labels,
     build_hourly_cluster_demand,
+    build_hourly_forecast_frame,
     build_pricing_feature_frame,
     load_and_prepare_trip_data,
     make_lstm_sequences,
@@ -61,8 +65,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--weather-temp",
         type=float,
-        default=24.0,
-        help="Default weather temperature used in pricing features.",
+        default=None,
+        help="Optional fixed weather temperature override for pricing features.",
     )
     return parser.parse_args()
 
@@ -184,12 +188,51 @@ def _run_pricing_cross_validation(
     }
 
 
+def _forecast_cluster_metrics(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    n_clusters: int,
+) -> Dict[str, Any]:
+    rows: List[Dict[str, float]] = []
+    for cluster_id in range(n_clusters):
+        c_true = y_true[:, cluster_id]
+        c_pred = y_pred[:, cluster_id]
+        rows.append(
+            {
+                "cluster": int(cluster_id),
+                "mae": float(mean_absolute_error(c_true, c_pred)),
+                "rmse": float(np.sqrt(mean_squared_error(c_true, c_pred))),
+            }
+        )
+    rows.sort(key=lambda item: item["rmse"], reverse=True)
+    return {
+        "clusters": rows,
+        "overall": {
+            "mae": float(mean_absolute_error(y_true, y_pred)),
+            "rmse": float(np.sqrt(mean_squared_error(y_true, y_pred))),
+        },
+    }
+
+
+def _pricing_holdout_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
+    abs_err = np.abs(y_true - y_pred)
+    return {
+        "mae": float(mean_absolute_error(y_true, y_pred)),
+        "rmse": float(np.sqrt(mean_squared_error(y_true, y_pred))),
+        "r2": float(r2_score(y_true, y_pred)),
+        "abs_error_p50": float(np.percentile(abs_err, 50)),
+        "abs_error_p90": float(np.percentile(abs_err, 90)),
+        "abs_error_p95": float(np.percentile(abs_err, 95)),
+    }
+
+
 def train_forecasting_model(
     x_seq: np.ndarray,
     y_seq: np.ndarray,
     models_dir: Path,
     lookback: int,
     n_clusters: int,
+    input_feature_names: List[str],
     seed: int,
     epochs: int,
     batch_size: int,
@@ -201,8 +244,12 @@ def train_forecasting_model(
         "lookback_hours": lookback,
         "n_clusters": n_clusters,
         "cluster_columns": [str(i) for i in range(n_clusters)],
+        "input_feature_count": int(x_seq.shape[-1]),
+        "input_feature_names": input_feature_names,
+        "exogenous_features": FORECAST_EXOGENOUS_COLUMNS,
     }
     validation_log_path = models_dir / "forecast_validation_metrics.json"
+    per_cluster_metrics_path = models_dir / "forecast_cluster_metrics.json"
 
     train_sample_weights = _build_sparse_hour_weights(y_train, power=sparse_weight_power)
     forecast_info["sparse_hour_weighting"] = {
@@ -219,7 +266,7 @@ def train_forecasting_model(
         tf.keras.utils.set_random_seed(seed)
         model = tf.keras.Sequential(
             [
-                tf.keras.layers.Input(shape=(lookback, n_clusters)),
+                tf.keras.layers.Input(shape=(lookback, x_seq.shape[-1])),
                 tf.keras.layers.LSTM(32),
                 tf.keras.layers.Dropout(0.2),
                 tf.keras.layers.Dense(n_clusters, activation="relu"),
@@ -291,10 +338,22 @@ def train_forecasting_model(
         }
         validation_log_path.write_text(json.dumps(validation_payload, indent=2), encoding="utf-8")
 
-    forecast_info["eval_mae"] = float(mean_absolute_error(y_test, pred))
-    forecast_info["eval_rmse"] = float(np.sqrt(mean_squared_error(y_test, pred)))
+    forecast_cluster_metrics = _forecast_cluster_metrics(y_test, pred, n_clusters=n_clusters)
+    per_cluster_metrics_path.write_text(
+        json.dumps(forecast_cluster_metrics, indent=2),
+        encoding="utf-8",
+    )
+
+    forecast_info["eval_mae"] = float(forecast_cluster_metrics["overall"]["mae"])
+    forecast_info["eval_rmse"] = float(forecast_cluster_metrics["overall"]["rmse"])
+    forecast_info["worst_cluster_rmse"] = float(
+        forecast_cluster_metrics["clusters"][0]["rmse"]
+        if forecast_cluster_metrics["clusters"]
+        else 0.0
+    )
     forecast_info["train_samples"] = int(len(x_train))
     forecast_info["test_samples"] = int(len(x_test))
+    forecast_info["cluster_metrics_file"] = per_cluster_metrics_path.name
     return forecast_info
 
 
@@ -363,9 +422,16 @@ def train_pricing_model(
     )
     pricing_info["cross_validation"] = cv_results
 
-    pricing_info["eval_mae"] = float(mean_absolute_error(y_test, pred))
-    pricing_info["eval_rmse"] = float(np.sqrt(mean_squared_error(y_test, pred)))
-    pricing_info["eval_r2"] = float(r2_score(y_test, pred))
+    holdout_metrics = _pricing_holdout_metrics(y_test, pred)
+    (models_dir / "pricing_holdout_metrics.json").write_text(
+        json.dumps(holdout_metrics, indent=2),
+        encoding="utf-8",
+    )
+
+    pricing_info["eval_mae"] = float(holdout_metrics["mae"])
+    pricing_info["eval_rmse"] = float(holdout_metrics["rmse"])
+    pricing_info["eval_r2"] = float(holdout_metrics["r2"])
+    pricing_info["holdout_metrics_file"] = "pricing_holdout_metrics.json"
     pricing_info["train_samples"] = int(len(x_train))
     pricing_info["test_samples"] = int(len(x_test))
     return pricing_info
@@ -389,9 +455,15 @@ def main() -> None:
 
     df_clustered = add_cluster_labels(df, kmeans)
 
-    print("[Phase2] Building hourly demand matrix and sequences...")
+    print("[Phase2] Building hourly demand + exogenous forecasting inputs...")
     hourly = build_hourly_cluster_demand(df_clustered, n_clusters=n_clusters)
-    x_seq, y_seq = make_lstm_sequences(hourly, lookback_hours=args.lookback)
+    hourly_forecast_features = build_hourly_forecast_frame(df_clustered, n_clusters=n_clusters)
+    forecast_feature_names = [f"cluster_{i}" for i in range(n_clusters)] + FORECAST_EXOGENOUS_COLUMNS
+    x_seq, y_seq = make_lstm_sequences(
+        hourly_forecast_features,
+        lookback_hours=args.lookback,
+        target_cluster_count=n_clusters,
+    )
     if len(x_seq) < 10:
         raise RuntimeError(
             "Not enough sequence samples for forecasting training. "
@@ -412,6 +484,7 @@ def main() -> None:
         models_dir=models_dir,
         lookback=args.lookback,
         n_clusters=n_clusters,
+        input_feature_names=forecast_feature_names,
         seed=args.seed,
         epochs=args.epochs,
         batch_size=args.batch_size,
@@ -444,6 +517,7 @@ def main() -> None:
     report = {
         "forecasting": forecast_info,
         "pricing": pricing_info,
+        "forecast_exogenous_features": FORECAST_EXOGENOUS_COLUMNS,
         "nrows_used": int(args.nrows),
         "records_after_cleaning": int(len(df_clustered)),
     }

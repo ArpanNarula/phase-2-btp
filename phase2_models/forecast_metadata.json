@@ -11,23 +11,48 @@
     "6",
     "7"
   ],
+  "input_feature_count": 13,
+  "input_feature_names": [
+    "cluster_0",
+    "cluster_1",
+    "cluster_2",
+    "cluster_3",
+    "cluster_4",
+    "cluster_5",
+    "cluster_6",
+    "cluster_7",
+    "weather_temp_c",
+    "precipitation_mm",
+    "is_holiday",
+    "event_intensity",
+    "is_weekend"
+  ],
+  "exogenous_features": [
+    "weather_temp_c",
+    "precipitation_mm",
+    "is_holiday",
+    "event_intensity",
+    "is_weekend"
+  ],
   "sparse_hour_weighting": {
     "enabled": true,
-    "power": 1.0,
-    "min_weight": 0.33777791261672974,
-    "max_weight": 3.54666805267334,
+    "power": 1.2,
+    "min_weight": 0.1796785444021225,
+    "max_weight": 6.936803340911865,
     "mean_weight": 1.0
   },
   "model_type": "sklearn_flat",
   "fallback_reason": "No module named 'tensorflow'",
-  "validation_samples": 682,
+  "validation_samples": 695,
   "best_validation": {
     "epoch": 1,
-    "val_mae": 0.9248266481256507,
-    "val_rmse": 1.344733939412281
+    "val_mae": 0.8928535456814299,
+    "val_rmse": 1.302679106068621
   },
-  "eval_mae": 0.8728835233561985,
-  "eval_rmse": 1.2672768232469593,
-  "train_samples": 2725,
-  "test_samples": 852
+  "eval_mae": 0.8453149822547941,
+  "eval_rmse": 1.2305259918098659,
+  "worst_cluster_rmse": 1.9046187394093483,
+  "train_samples": 2780,
+  "test_samples": 869,
+  "cluster_metrics_file": "forecast_cluster_metrics.json"
 }

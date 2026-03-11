@@ -1,70 +1,74 @@
 # Intelligent Fleet Allocation System (Phase 1 + Phase 2)
 
-This project is a Streamlit-based **Fleet Command Center** for taxi demand intelligence.
+Streamlit-based command center for fleet operations, demand forecasting, pricing, and dispatch simulation.
 
-## Phase 1
-- Live hotspot visualization with pre-trained KMeans clusters.
-- Research lab comparison: KMeans vs HDBSCAN.
-- Fleet efficiency analytics: speed profile + trip-duration distribution.
+## Implemented Scope
 
-## Phase 2
-Implemented from your mid-sem specification:
-- **Demand forecasting** (one-hour ahead, cluster-wise) using a 24-hour sliding window.
-- **Dynamic pricing simulation** with trip-duration regression + demand-ratio surge multiplier.
-- **Dispatch simulation** (discrete-event style) comparing random baseline vs AI-driven positioning.
-- **Integrated dashboard** with low-latency inference from offline-trained artifacts.
+### Phase 1
+- Live hotspot view with pre-trained KMeans zones.
+- Research comparison: KMeans vs HDBSCAN.
+- Efficiency diagnostics: hourly speed profile and duration distribution.
 
-## Project Files
-- `app.py` -> Phase 1 + Phase 2 dashboard.
-- `phase2_core.py` -> Shared pipeline/utilities for Phase 2.
-- `train_phase2_models.py` -> Offline trainer for forecasting + pricing models.
-- `phase2_models/` -> Generated model artifacts (created after training).
+### Phase 2
+- **Demand forecasting (LSTM / fallback model)** with one-hour-ahead cluster prediction.
+- **Validation MAE/RMSE logging** across training epochs (when Keras is used).
+- **Forecast hold-out error by cluster** (`MAE`, `RMSE`) for comprehensive evaluation.
+- **Dynamic pricing regression** with exogenous inputs (weather, holiday, event intensity).
+- **Feature importance export** for pricing drivers.
+- **K-fold cross-validation** for pricing model stability.
+- **Imbalanced demand handling** by sparse-hour weighted forecasting loss.
+- **Realistic dispatch simulation** with travel-time matrix calibration, driver availability, and service-time effects.
+- **End-to-end rebalancing logic** (top-k deficit clusters + relocation recommendations), validated in simulation.
+- **Professional dashboard UI overhaul** with clean information architecture.
+
+## Key Files
+- `app.py` - Streamlit dashboard (Phase 1 + Phase 2).
+- `phase2_core.py` - data pipeline, exogenous feature logic, simulation + rebalancing engine.
+- `train_phase2_models.py` - offline model training and metric export.
+- `phase2_models/` - generated model artifacts.
 
 ## Setup
 ```bash
 pip install -r requirements.txt
 ```
 
-Optional (recommended for full Phase 2 behavior):
+Optional (recommended for full capability):
 ```bash
 pip install tensorflow xgboost
 ```
 
-## Run Phase 2 Training (Offline)
-This creates all artifacts used by the dashboard:
+## Train Phase 2 Models
 ```bash
 python train_phase2_models.py
 ```
 
-Artifacts generated under `phase2_models/`:
-- `forecast_metadata.json`
-- `lstm_demand_forecaster.keras` OR `lstm_demand_forecaster.pkl` (fallback)
-- `forecast_validation_metrics.json` (epoch-wise val MAE/RMSE log)
-- `demand_baseline.json`
-- `xgb_pricing_model.json` OR `skl_pricing_model.pkl` (fallback)
-- `xgb_features.json`
-- `pricing_feature_importance.json` (pricing driver importance ranking)
-- `training_report.json`
-
-Example with tuning flags:
+Useful flags:
 ```bash
-python train_phase2_models.py --cv-folds 5 --sparse-weight-power 1.0
+python train_phase2_models.py --cv-folds 5 --sparse-weight-power 1.2 --epochs 25
 ```
+
+## Artifacts Generated (`phase2_models/`)
+- `forecast_metadata.json`
+- `forecast_validation_metrics.json`
+- `forecast_cluster_metrics.json`
+- `demand_baseline.json`
+- `lstm_demand_forecaster.keras` or `lstm_demand_forecaster.pkl`
+- `xgb_pricing_model.json` or `skl_pricing_model.pkl`
+- `xgb_features.json`
+- `pricing_feature_importance.json`
+- `pricing_holdout_metrics.json`
+- `training_report.json`
 
 ## Run Dashboard
 ```bash
 streamlit run app.py
 ```
 
-In the sidebar:
-- `📍 Live Operations`
-- `🔬 Research Lab`
-- `📉 Efficiency Analysis`
-- `🤖 Phase 2 Intelligence`
+## Deploy on Streamlit Community Cloud
+1. Push this repo to GitHub.
+2. Go to [share.streamlit.io](https://share.streamlit.io/).
+3. Select repository + branch `main`.
+4. Set **Main file path** = `app.py`.
+5. Deploy.
 
-## Notes
-- If TensorFlow is unavailable, forecasting training automatically falls back to a sklearn multi-output model.
-- If XGBoost is unavailable, pricing training automatically falls back to sklearn GradientBoostingRegressor.
-- Forecasting now upweights sparse-demand hours during training via inverse-demand sample weighting.
-- Pricing training now logs k-fold cross-validation stability metrics into `training_report.json`.
-- `kmeans_fleet_model.pkl` is required for both Phase 1 and Phase 2.
+If deployment shows old UI, click **Manage app -> Reboot app** after confirming latest commit is on `main`.

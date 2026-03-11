@@ -3,33 +3,53 @@
   "feature_importance": [
     {
       "feature": "distance_km",
-      "importance": 0.5856900100958483,
-      "importance_normalized": 0.5856900100958483
+      "importance": 0.5081453065364493,
+      "importance_normalized": 0.5081453065364493
     },
     {
       "feature": "traffic_proxy",
-      "importance": 0.37881535185196274,
-      "importance_normalized": 0.37881535185196274
+      "importance": 0.37820173186943234,
+      "importance_normalized": 0.37820173186943234
     },
     {
-      "feature": "hour",
-      "importance": 0.025320066064017443,
-      "importance_normalized": 0.025320066064017443
+      "feature": "precipitation_mm",
+      "importance": 0.04399897995702258,
+      "importance_normalized": 0.04399897995702258
     },
     {
-      "feature": "weekday",
-      "importance": 0.0099739981482909,
-      "importance_normalized": 0.0099739981482909
+      "feature": "weather_temp_c",
+      "importance": 0.029165520597733387,
+      "importance_normalized": 0.029165520597733387
     },
     {
       "feature": "hour_cos",
-      "importance": 0.00010038847616220786,
-      "importance_normalized": 0.00010038847616220786
+      "importance": 0.018040551002458875,
+      "importance_normalized": 0.018040551002458875
+    },
+    {
+      "feature": "is_weekend",
+      "importance": 0.016737701033581437,
+      "importance_normalized": 0.016737701033581437
+    },
+    {
+      "feature": "hour",
+      "importance": 0.0055942476230575475,
+      "importance_normalized": 0.0055942476230575475
+    },
+    {
+      "feature": "weekday",
+      "importance": 0.00011335581425980859,
+      "importance_normalized": 0.00011335581425980859
+    },
+    {
+      "feature": "event_intensity",
+      "importance": 1.7062772544880258e-06,
+      "importance_normalized": 1.7062772544880258e-06
     },
     {
       "feature": "hour_sin",
-      "importance": 0.00010018536371840097,
-      "importance_normalized": 0.00010018536371840097
+      "importance": 8.992887502102914e-07,
+      "importance_normalized": 8.992887502102914e-07
     },
     {
       "feature": "passenger_count",
@@ -37,7 +57,7 @@
       "importance_normalized": 0.0
     },
     {
-      "feature": "weather_temp_c",
+      "feature": "is_holiday",
       "importance": 0.0,
       "importance_normalized": 0.0
     }
