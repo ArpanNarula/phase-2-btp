@@ -37,38 +37,40 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Serif:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap');
 
 :root {
-  --bg-1: #0b1220;
-  --bg-2: #111827;
-  --surface: #0f172a;
-  --card: #111d34;
-  --ink: #e5edf8;
-  --muted: #9fb2cc;
-  --accent: #34d399;
+  --bg-1: #07111f;
+  --bg-2: #0d1728;
+  --card: #13233a;
+  --card-2: #0f1c30;
+  --ink: #e8eef7;
+  --muted: #8ea2bf;
+  --accent: #f59e0b;
   --accent-2: #38bdf8;
-  --line: #22314a;
+  --line: #223754;
+  --success: #10b981;
 }
 
 html, body, [class*="css"] {
-  font-family: "Manrope", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   color: var(--ink) !important;
 }
 
 .stApp {
   background:
-    radial-gradient(1400px 600px at -15% -20%, #1f2937 0%, transparent 55%),
-    radial-gradient(1000px 500px at 120% -10%, #0b1e35 0%, transparent 60%),
+    radial-gradient(1200px 520px at -10% -15%, rgba(245, 158, 11, 0.08) 0%, transparent 55%),
+    radial-gradient(1000px 520px at 110% -5%, rgba(56, 189, 248, 0.10) 0%, transparent 58%),
     linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
 }
 
 .block-container {
-  padding-top: 1rem;
+  padding-top: 0.8rem;
+  padding-bottom: 2rem;
 }
 
 h1, h2, h3 {
-  font-family: "IBM Plex Serif", serif;
+  font-family: "Newsreader", serif;
   color: #f8fbff !important;
 }
 
@@ -100,9 +102,9 @@ h1, h2, h3 {
 }
 
 div[data-testid="stMetric"] {
-  background: linear-gradient(180deg, #102038 0%, #0e1b2f 100%);
+  background: linear-gradient(180deg, #152742 0%, #0f1d31 100%);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 0.8rem 0.9rem;
   box-shadow: 0 10px 24px rgba(3, 10, 22, 0.26);
 }
@@ -119,42 +121,48 @@ div[data-testid="stMetricValue"] {
 }
 
 .hero {
-  background: linear-gradient(110deg, #0f2742 0%, #12345a 45%, #1d4ed8 100%);
-  border-radius: 14px;
-  padding: 1.2rem 1.3rem;
+  background:
+    radial-gradient(circle at top right, rgba(245, 158, 11, 0.18), transparent 24%),
+    linear-gradient(120deg, #12263f 0%, #102c4a 45%, #0f4264 100%);
+  border-radius: 22px;
+  padding: 1.4rem 1.5rem;
   color: #f8fbff !important;
-  border: 1px solid #244675;
-  box-shadow: 0 14px 28px rgba(6, 16, 36, 0.35);
-  margin-bottom: 0.9rem;
+  border: 1px solid #29476b;
+  box-shadow: 0 18px 44px rgba(2, 10, 24, 0.36);
+  margin-bottom: 1rem;
 }
 
 .hero h1 {
   margin: 0;
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 2.3rem;
+  line-height: 1;
 }
 
 .hero p {
-  margin: 0.35rem 0 0;
-  color: #e3f2fd;
-  font-size: 0.96rem;
+  margin: 0.55rem 0 0;
+  color: #d3e3f4;
+  font-size: 1rem;
+  max-width: 56rem;
 }
 
 .badge {
   display: inline-block;
-  font-size: 0.77rem;
-  margin-top: 0.55rem;
-  padding: 0.27rem 0.62rem;
+  font-size: 0.75rem;
+  margin-top: 0.85rem;
+  margin-right: 0.45rem;
+  padding: 0.32rem 0.72rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f8fbff;
 }
 
 .sidebar-card {
-  background: linear-gradient(180deg, #102038 0%, #0e1b2f 100%);
+  background: linear-gradient(180deg, #152742 0%, #0f1d31 100%);
   border: 1px solid #22314a;
-  border-radius: 12px;
-  padding: 0.7rem 0.8rem;
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
   margin-bottom: 0.7rem;
 }
 
@@ -164,6 +172,68 @@ div[data-testid="stMetricValue"] {
 
 .stMarkdown p, .stCaption, label {
   color: #d8e4f2 !important;
+}
+
+.section-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: #7dd3fc;
+  margin-bottom: 0.35rem;
+}
+
+.section-title {
+  font-family: "Newsreader", serif;
+  font-size: 2rem;
+  line-height: 1;
+  color: #f8fbff;
+  margin: 0;
+}
+
+.section-copy {
+  color: #9fb2cc;
+  max-width: 52rem;
+  margin-top: 0.55rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card {
+  background: linear-gradient(180deg, #14253e 0%, #101d31 100%);
+  border: 1px solid #233a58;
+  border-radius: 18px;
+  padding: 1rem 1rem 0.95rem 1rem;
+  min-height: 148px;
+  box-shadow: 0 14px 28px rgba(2, 10, 24, 0.22);
+}
+
+.feature-card .eyebrow {
+  color: #7dd3fc;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.feature-card .headline {
+  color: #f8fbff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.feature-card .meta {
+  color: #93a8c7;
+  font-size: 0.92rem;
+  margin-top: 0.45rem;
+  line-height: 1.45;
+}
+
+.phase1-note {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  color: #f2ddb0;
+  margin-bottom: 1rem;
 }
 
 button[role="tab"] {
@@ -179,13 +249,13 @@ button[role="tab"][aria-selected="true"] {
 
 [data-testid="stDataFrame"] {
   border: 1px solid #22314a;
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
 [data-testid="stExpander"] {
   border: 1px solid #22314a !important;
-  border-radius: 10px !important;
+  border-radius: 14px !important;
   background: #0f1b2f !important;
 }
 
@@ -363,6 +433,79 @@ def _standard_layout(fig, title: str, height: int = 430):
     return fig
 
 
+def _page_intro(kicker: str, title: str, copy: str):
+    st.markdown(
+        f"""
+<div class="section-kicker">{kicker}</div>
+<div class="section-title">{title}</div>
+<div class="section-copy">{copy}</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def _feature_card(eyebrow: str, headline: str, meta: str):
+    st.markdown(
+        f"""
+<div class="feature-card">
+  <div class="eyebrow">{eyebrow}</div>
+  <div class="headline">{headline}</div>
+  <div class="meta">{meta}</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+
+def build_phase2_state(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict) -> dict:
+    n_clusters = int(
+        getattr(kmeans_model, "n_clusters", artifacts.get("forecast_meta", {}).get("n_clusters", 8))
+    )
+    hourly_demand = build_hourly_cluster_demand(df_clustered, n_clusters=n_clusters)
+    hourly_forecast_features = build_hourly_forecast_frame(df_clustered, n_clusters=n_clusters)
+    forecast = infer_next_hour_demand(hourly_forecast_features, artifacts, n_clusters=n_clusters)
+
+    if forecast is None and not hourly_demand.empty:
+        forecast = hourly_demand.tail(1).values[0]
+
+    baseline = artifacts.get("baseline", {})
+    if not baseline and not hourly_demand.empty:
+        baseline = {str(i): float(hourly_demand[i].mean()) for i in range(n_clusters)}
+
+    current_supply = (
+        hourly_demand.tail(1).values[0]
+        if not hourly_demand.empty
+        else np.ones(n_clusters, dtype=float)
+    )
+
+    pred_df = None
+    rebalancing = None
+    if forecast is not None:
+        cluster_labels = [f"Cluster {i}" for i in range(n_clusters)]
+        pred_df = pd.DataFrame(
+            {"cluster": cluster_labels, "predicted_demand": forecast, "current_supply": current_supply}
+        )
+        pred_df["supply_gap"] = pred_df["predicted_demand"] - pred_df["current_supply"]
+        pred_df = pred_df.sort_values("predicted_demand", ascending=False).reset_index(drop=True)
+        pred_df["rank"] = np.arange(1, len(pred_df) + 1)
+        rebalancing = recommend_rebalancing_actions(
+            predicted_demand=forecast,
+            current_supply=current_supply,
+            top_k=3,
+        )
+
+    return {
+        "n_clusters": n_clusters,
+        "hourly_demand": hourly_demand,
+        "hourly_forecast_features": hourly_forecast_features,
+        "forecast": forecast,
+        "baseline": baseline,
+        "current_supply": current_supply,
+        "pred_df": pred_df,
+        "rebalancing": rebalancing,
+    }
+
+
 def run_live_operations(df: pd.DataFrame, model: KMeans | None):
     st.subheader("Live Operations")
     selected_hour = st.sidebar.slider("Live hour", 0, 23, 18)
@@ -522,248 +665,288 @@ def _render_forecast_evaluation_panel(artifacts: dict):
             st.plotly_chart(fig_val, use_container_width=True)
 
 
-def run_phase2_module(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict):
-    st.subheader("Phase 2 Predictive Intelligence")
-
-    n_clusters = int(
-        getattr(kmeans_model, "n_clusters", artifacts.get("forecast_meta", {}).get("n_clusters", 8))
-    )
-    hourly_demand = build_hourly_cluster_demand(df_clustered, n_clusters=n_clusters)
-    hourly_forecast_features = build_hourly_forecast_frame(df_clustered, n_clusters=n_clusters)
-    forecast = infer_next_hour_demand(hourly_forecast_features, artifacts, n_clusters=n_clusters)
-
-    if forecast is None and not hourly_demand.empty:
-        forecast = hourly_demand.tail(1).values[0]
-
-    baseline = artifacts.get("baseline", {})
-    if not baseline and not hourly_demand.empty:
-        baseline = {str(i): float(hourly_demand[i].mean()) for i in range(n_clusters)}
-
-    current_supply = (
-        hourly_demand.tail(1).values[0]
-        if not hourly_demand.empty
-        else np.ones(n_clusters, dtype=float)
+def render_phase2_overview(state: dict, artifacts: dict):
+    _page_intro(
+        "Phase 2 Command",
+        "Predictive operations, pricing, and dispatch in one place.",
+        "This dashboard now treats Phase 2 as the main product. Forecasting, pricing, rebalancing, and evaluation are split into dedicated views so the system feels like a real command center instead of a nested demo.",
     )
 
-    rebalancing = None
-    if forecast is not None:
-        rebalancing = recommend_rebalancing_actions(
-            predicted_demand=forecast,
-            current_supply=current_supply,
-            top_k=3,
-        )
+    pred_df = state["pred_df"]
+    forecast = state["forecast"]
+    top_cluster = pred_df.iloc[0]["cluster"] if pred_df is not None else "Unavailable"
+    total_pred = float(pred_df["predicted_demand"].sum()) if pred_df is not None else 0.0
+    largest_gap = float(pred_df["supply_gap"].max()) if pred_df is not None else 0.0
 
-    tabs = st.tabs(
-        [
-            "Demand Intelligence",
-            "Dynamic Pricing",
-            "Dispatch + Rebalancing",
-            "Model Evaluation",
-        ]
-    )
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        _feature_card("Demand Focus", str(top_cluster), "Highest projected next-hour pickup demand.")
+    with c2:
+        _feature_card("Predicted Volume", f"{total_pred:.2f}", "Aggregate next-hour forecast across all clusters.")
+    with c3:
+        _feature_card("Rebalancing Gap", f"{largest_gap:.2f}", "Largest supply shortfall to act on immediately.")
 
-    with tabs[0]:
-        st.caption(
-            "One-hour-ahead demand forecast with exogenous context features "
-            f"({', '.join(FORECAST_EXOGENOUS_COLUMNS)})."
-        )
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Forecast model", artifacts.get("forecast_model_type", "missing"))
+    m2.metric("Pricing model", artifacts.get("pricing_model_type", "missing"))
+    m3.metric("Clusters", state["n_clusters"])
+    m4.metric("Exogenous signals", len(FORECAST_EXOGENOUS_COLUMNS))
 
-        if forecast is None:
-            st.warning("Forecast model is unavailable. Run `python train_phase2_models.py`.")
-        else:
-            cluster_labels = [f"Cluster {i}" for i in range(n_clusters)]
-            pred_df = pd.DataFrame(
-                {"cluster": cluster_labels, "predicted_demand": forecast, "current_supply": current_supply}
-            )
-            pred_df["supply_gap"] = pred_df["predicted_demand"] - pred_df["current_supply"]
-            pred_df = pred_df.sort_values("predicted_demand", ascending=False).reset_index(drop=True)
-            pred_df["rank"] = np.arange(1, len(pred_df) + 1)
+    if pred_df is not None:
+        left, right = st.columns([1.4, 1])
 
-            k1, k2, k3, k4 = st.columns(4)
-            k1.metric("Top demand cluster", pred_df.loc[0, "cluster"])
-            k2.metric("Top predicted trips", f"{pred_df.loc[0, 'predicted_demand']:.2f}")
-            k3.metric("Total predicted demand", f"{pred_df['predicted_demand'].sum():.2f}")
-            k4.metric("Largest supply gap", f"{pred_df['supply_gap'].max():.2f}")
-
+        with left:
             fig_pred = px.bar(
-                pred_df,
+                pred_df.head(8),
                 x="cluster",
                 y="predicted_demand",
                 color="supply_gap",
                 color_continuous_scale="Tealgrn",
             )
-            _standard_layout(fig_pred, "Next-Hour Demand Forecast by Cluster")
+            _standard_layout(fig_pred, "Forecast Snapshot by Cluster", height=420)
             st.plotly_chart(fig_pred, use_container_width=True)
 
-            recent = hourly_demand.tail(24)
-            if not recent.empty:
-                heat = recent.T.reindex(range(n_clusters)).fillna(0.0)
-                heat.index = [f"Cluster {i}" for i in range(n_clusters)]
-                fig_heat = go.Figure(
-                    data=go.Heatmap(
-                        z=heat.values,
-                        x=[x.strftime("%d %b %H:%M") for x in recent.index],
-                        y=heat.index.tolist(),
-                        colorscale="YlGnBu",
-                        zmin=0,
-                        zmax=max(1.0, float(np.nanmax(heat.values))),
-                        colorbar=dict(title="Trips"),
-                        hovertemplate="Cluster: %{y}<br>Hour: %{x}<br>Trips: %{z}<extra></extra>",
+        with right:
+            st.markdown("### Immediate action")
+            top3 = pred_df.head(3)
+            cols = st.columns(3)
+            for idx, (_, row) in enumerate(top3.iterrows()):
+                with cols[idx]:
+                    _feature_card(
+                        f"Rank {int(row['rank'])}",
+                        row["cluster"],
+                        f"Demand {row['predicted_demand']:.2f} | Gap {row['supply_gap']:.2f}",
                     )
-                )
-                _standard_layout(fig_heat, "Last 24 Hours Demand Heatmap")
-                fig_heat.update_xaxes(tickangle=-30)
-                st.plotly_chart(fig_heat, use_container_width=True)
 
-            st.markdown("### Top 3 Clusters by Predicted Demand")
-            top3 = pred_df.head(3)[["rank", "cluster", "predicted_demand", "current_supply", "supply_gap"]]
-            st.dataframe(top3, use_container_width=True, hide_index=True)
+    fc_metrics = artifacts.get("forecast_cluster_metrics", {}).get("overall", {})
+    hold = artifacts.get("pricing_holdout", {})
+    bottom_left, bottom_right = st.columns(2)
+    with bottom_left:
+        st.markdown("### Forecast quality")
+        st.metric("Hold-out RMSE", f"{float(fc_metrics.get('rmse', 0.0)):.3f}")
+        st.metric("Hold-out MAE", f"{float(fc_metrics.get('mae', 0.0)):.3f}")
+    with bottom_right:
+        st.markdown("### Pricing quality")
+        st.metric("Hold-out R2", f"{float(hold.get('r2', 0.0)):.3f}")
+        st.metric("Hold-out RMSE", f"{float(hold.get('rmse', 0.0)):.2f}")
 
-            with st.expander("Show all cluster forecasts"):
-                st.dataframe(
-                    pred_df[["rank", "cluster", "predicted_demand", "current_supply", "supply_gap"]],
-                    use_container_width=True,
-                    hide_index=True,
-                )
 
-    with tabs[1]:
-        st.caption("Duration regression + demand-sensitive surge pricing with exogenous controls.")
+def render_phase2_demand(state: dict):
+    _page_intro(
+        "Phase 2 / Forecasting",
+        "Demand Forecasting",
+        f"One-hour-ahead demand forecast with exogenous signals: {', '.join(FORECAST_EXOGENOUS_COLUMNS)}.",
+    )
 
-        if artifacts.get("pricing_model") is None:
-            st.warning("Pricing model artifacts are missing. Run `python train_phase2_models.py`.")
-        else:
-            default_pick_lat = float(df_clustered["pickup_latitude"].median())
-            default_pick_lon = float(df_clustered["pickup_longitude"].median())
-            default_drop_lat = float(df_clustered["dropoff_latitude"].median())
-            default_drop_lon = float(df_clustered["dropoff_longitude"].median())
+    pred_df = state["pred_df"]
+    hourly_demand = state["hourly_demand"]
+    if pred_df is None:
+        st.warning("Forecast model is unavailable. Run `python train_phase2_models.py`.")
+        return
 
-            c1, c2 = st.columns(2)
-            with c1:
-                pickup_lat = st.number_input("Pickup latitude", value=default_pick_lat, format="%.6f")
-                pickup_lon = st.number_input("Pickup longitude", value=default_pick_lon, format="%.6f")
-                passenger_count = st.slider("Passenger count", 1, 6, 1)
-                selected_hour = st.slider("Trip hour", 0, 23, 18, key="phase2_pricing_hour")
-            with c2:
-                dropoff_lat = st.number_input("Dropoff latitude", value=default_drop_lat, format="%.6f")
-                dropoff_lon = st.number_input("Dropoff longitude", value=default_drop_lon, format="%.6f")
-                weather_temp = st.slider("Weather temp (C)", -5.0, 42.0, 24.0)
-                event_intensity = st.slider("Event intensity", 0.0, 3.0, 0.8, 0.1)
+    k1, k2, k3, k4 = st.columns(4)
+    k1.metric("Top cluster", pred_df.loc[0, "cluster"])
+    k2.metric("Top predicted trips", f"{pred_df.loc[0, 'predicted_demand']:.2f}")
+    k3.metric("Total predicted demand", f"{pred_df['predicted_demand'].sum():.2f}")
+    k4.metric("Largest gap", f"{pred_df['supply_gap'].max():.2f}")
 
-            ex1, ex2, ex3 = st.columns(3)
-            precip = ex1.slider("Precipitation (mm)", 0.0, 12.0, 1.2, 0.1)
-            holiday = ex2.selectbox("Holiday flag", [0.0, 1.0], format_func=lambda x: "Yes" if x else "No")
-            use_forecast_ratio = ex3.checkbox("Use forecast demand ratio", value=True)
-            manual_ratio = st.slider("Manual demand ratio", 0.5, 3.0, 1.2, 0.1)
+    chart_col, side_col = st.columns([1.55, 1])
+    with chart_col:
+        fig_pred = px.bar(
+            pred_df,
+            x="cluster",
+            y="predicted_demand",
+            color="supply_gap",
+            color_continuous_scale="Tealgrn",
+        )
+        _standard_layout(fig_pred, "Next-Hour Demand Forecast by Cluster", height=440)
+        st.plotly_chart(fig_pred, use_container_width=True)
 
-            speed_by_hour = df_clustered.groupby("hour")["speed_kmh"].mean().to_dict()
-            assumed_speed = float(speed_by_hour.get(selected_hour, df_clustered["speed_kmh"].mean()))
+    with side_col:
+        st.markdown("### Top 3 clusters")
+        for _, row in pred_df.head(3).iterrows():
+            _feature_card(
+                f"Rank {int(row['rank'])}",
+                row["cluster"],
+                f"Predicted demand {row['predicted_demand']:.2f}<br>Current supply {row['current_supply']:.2f}<br>Gap {row['supply_gap']:.2f}",
+            )
 
-            if st.button("Estimate duration and surge"):
-                base_date = pd.Timestamp("2026-01-05") + pd.Timedelta(hours=int(selected_hour))
-                feature_row = build_single_pricing_features(
-                    pickup_dt=base_date,
-                    pickup_longitude=pickup_lon,
-                    pickup_latitude=pickup_lat,
-                    dropoff_longitude=dropoff_lon,
-                    dropoff_latitude=dropoff_lat,
-                    passenger_count=passenger_count,
-                    assumed_speed_kmh=assumed_speed,
-                    weather_temp_c=weather_temp,
-                    precipitation_mm=precip,
-                    is_holiday=holiday,
-                    event_intensity=event_intensity,
-                )
+    recent = hourly_demand.tail(24)
+    if not recent.empty:
+        heat = recent.T.reindex(range(state["n_clusters"])).fillna(0.0)
+        heat.index = [f"Cluster {i}" for i in range(state["n_clusters"])]
+        fig_heat = go.Figure(
+            data=go.Heatmap(
+                z=heat.values,
+                x=[x.strftime("%d %b %H:%M") for x in recent.index],
+                y=heat.index.tolist(),
+                colorscale="YlGnBu",
+                zmin=0,
+                zmax=max(1.0, float(np.nanmax(heat.values))),
+                colorbar=dict(title="Trips"),
+                hovertemplate="Cluster: %{y}<br>Hour: %{x}<br>Trips: %{z}<extra></extra>",
+            )
+        )
+        _standard_layout(fig_heat, "Last 24 Hours Demand Heatmap", height=450)
+        fig_heat.update_xaxes(tickangle=-30)
+        st.plotly_chart(fig_heat, use_container_width=True)
 
-                expected_columns = artifacts.get("pricing_features") or list(feature_row.columns)
-                features_used = feature_row.reindex(columns=expected_columns, fill_value=0.0)
-                pred_duration = float(artifacts["pricing_model"].predict(features_used)[0])
-                pred_duration = float(np.clip(pred_duration, 60.0, 7200.0))
-
-                pickup_cluster = int(kmeans_model.predict(np.array([[pickup_lat, pickup_lon]], dtype=float))[0])
-                demand_ratio = manual_ratio
-                if use_forecast_ratio and forecast is not None:
-                    base = float(baseline.get(str(pickup_cluster), 1.0))
-                    demand_ratio = float(forecast[pickup_cluster] / max(base, 1.0))
-
-                surge = surge_multiplier(demand_ratio=demand_ratio, base=1.0, alpha=0.85, max_surge=3.0)
-                fare_proxy = (pred_duration / 60.0) * 1.9 * surge
-
-                m1, m2, m3, m4 = st.columns(4)
-                m1.metric("Predicted duration", f"{pred_duration / 60:.1f} min")
-                m2.metric("Demand ratio", f"{demand_ratio:.2f}")
-                m3.metric("Surge multiplier", f"{surge:.2f}x")
-                m4.metric("Fare proxy", f"${fare_proxy:.2f}")
-                st.caption(f"Pickup cluster: {pickup_cluster} | Pricing model: {artifacts.get('pricing_model_type')}")
-
-                st.dataframe(features_used, use_container_width=True, hide_index=True)
-
-            importance_rows = artifacts.get("pricing_importance", {}).get("feature_importance", [])
-            if importance_rows:
-                imp_df = pd.DataFrame(importance_rows).head(10)
-                fig_imp = px.bar(
-                    imp_df,
-                    x="importance_normalized",
-                    y="feature",
-                    orientation="h",
-                    color="importance_normalized",
-                    color_continuous_scale="Blues",
-                )
-                _standard_layout(fig_imp, "Pricing Driver Importance (Top 10)", height=380)
-                fig_imp.update_yaxes(categoryorder="total ascending")
-                st.plotly_chart(fig_imp, use_container_width=True)
-
-    with tabs[2]:
-        st.caption(
-            "End-to-end decision logic: convert forecast to top-k repositioning, "
-            "then validate in realistic simulation (travel times + driver availability + service times)."
+    with st.expander("Open full cluster forecast table"):
+        st.dataframe(
+            pred_df[["rank", "cluster", "predicted_demand", "current_supply", "supply_gap"]],
+            use_container_width=True,
+            hide_index=True,
         )
 
-        requests = st.slider("Simulated requests", 500, 9000, 2500, step=250)
-        drivers = st.slider("Available drivers", 80, 1000, 420, step=20)
-        service_mean = st.slider("Mean service time (sec)", 240, 1500, 600, step=30)
-        rebalance_every = st.slider("AI rebalance frequency (requests)", 20, 250, 80, step=10)
 
-        demand_profile = st.radio(
-            "Request demand profile",
-            ["Historical distribution", "Forecast-adjusted distribution"],
-            horizontal=True,
+def render_phase2_pricing(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict, state: dict):
+    _page_intro(
+        "Phase 2 / Pricing",
+        "Dynamic Pricing",
+        "Estimate trip duration, demand ratio, and surge from route geometry, time-of-day, and external demand signals.",
+    )
+
+    if artifacts.get("pricing_model") is None:
+        st.warning("Pricing model artifacts are missing. Run `python train_phase2_models.py`.")
+        return
+
+    default_pick_lat = float(df_clustered["pickup_latitude"].median())
+    default_pick_lon = float(df_clustered["pickup_longitude"].median())
+    default_drop_lat = float(df_clustered["dropoff_latitude"].median())
+    default_drop_lon = float(df_clustered["dropoff_longitude"].median())
+
+    c1, c2 = st.columns(2)
+    with c1:
+        pickup_lat = st.number_input("Pickup latitude", value=default_pick_lat, format="%.6f")
+        pickup_lon = st.number_input("Pickup longitude", value=default_pick_lon, format="%.6f")
+        passenger_count = st.slider("Passenger count", 1, 6, 1)
+        selected_hour = st.slider("Trip hour", 0, 23, 18, key="phase2_pricing_hour")
+    with c2:
+        dropoff_lat = st.number_input("Dropoff latitude", value=default_drop_lat, format="%.6f")
+        dropoff_lon = st.number_input("Dropoff longitude", value=default_drop_lon, format="%.6f")
+        weather_temp = st.slider("Weather temp (C)", -5.0, 42.0, 24.0)
+        event_intensity = st.slider("Event intensity", 0.0, 3.0, 0.8, 0.1)
+
+    ex1, ex2, ex3 = st.columns(3)
+    precip = ex1.slider("Precipitation (mm)", 0.0, 12.0, 1.2, 0.1)
+    holiday = ex2.selectbox("Holiday flag", [0.0, 1.0], format_func=lambda x: "Yes" if x else "No")
+    use_forecast_ratio = ex3.checkbox("Use forecast demand ratio", value=True)
+    manual_ratio = st.slider("Manual demand ratio", 0.5, 3.0, 1.2, 0.1)
+
+    speed_by_hour = df_clustered.groupby("hour")["speed_kmh"].mean().to_dict()
+    assumed_speed = float(speed_by_hour.get(selected_hour, df_clustered["speed_kmh"].mean()))
+
+    if st.button("Estimate duration and surge", use_container_width=True):
+        base_date = pd.Timestamp("2026-01-05") + pd.Timedelta(hours=int(selected_hour))
+        feature_row = build_single_pricing_features(
+            pickup_dt=base_date,
+            pickup_longitude=pickup_lon,
+            pickup_latitude=pickup_lat,
+            dropoff_longitude=dropoff_lon,
+            dropoff_latitude=dropoff_lat,
+            passenger_count=passenger_count,
+            assumed_speed_kmh=assumed_speed,
+            weather_temp_c=weather_temp,
+            precipitation_mm=precip,
+            is_holiday=holiday,
+            event_intensity=event_intensity,
         )
 
-        counts = dict_from_cluster_series(df_clustered["cluster"], n_clusters=n_clusters)
-        historical_weights = normalize_weights([counts[str(i)] for i in range(n_clusters)])
-        if demand_profile == "Forecast-adjusted distribution" and forecast is not None:
-            demand_weights = normalize_weights(forecast)
-        else:
-            demand_weights = historical_weights
+        expected_columns = artifacts.get("pricing_features") or list(feature_row.columns)
+        features_used = feature_row.reindex(columns=expected_columns, fill_value=0.0)
+        pred_duration = float(artifacts["pricing_model"].predict(features_used)[0])
+        pred_duration = float(np.clip(pred_duration, 60.0, 7200.0))
 
-        travel_matrix = estimate_intercluster_travel_time_matrix(df_clustered, n_clusters=n_clusters)
-        transition_matrix = estimate_dropoff_transition_matrix(df_clustered, n_clusters=n_clusters)
+        pickup_cluster = int(kmeans_model.predict(np.array([[pickup_lat, pickup_lon]], dtype=float))[0])
+        demand_ratio = manual_ratio
+        if use_forecast_ratio and state["forecast"] is not None:
+            base = float(state["baseline"].get(str(pickup_cluster), 1.0))
+            demand_ratio = float(state["forecast"][pickup_cluster] / max(base, 1.0))
 
-        ai_weights = rebalancing.get("target_weights") if rebalancing else None
-        result = run_dispatch_simulation(
-            demand_weights=demand_weights,
-            num_requests=int(requests),
-            seed=42,
-            travel_time_matrix=travel_matrix,
-            transition_matrix=transition_matrix,
-            num_drivers=int(drivers),
-            service_time_mean_sec=float(service_mean),
-            ai_supply_weights=ai_weights,
-            rebalance_every_n_requests=int(rebalance_every),
-        )
+        surge = surge_multiplier(demand_ratio=demand_ratio, base=1.0, alpha=0.85, max_surge=3.0)
+        fare_proxy = (pred_duration / 60.0) * 1.9 * surge
 
         m1, m2, m3, m4 = st.columns(4)
-        m1.metric("Random mean wait", f"{result.random_mean_wait:.1f}s")
-        m2.metric("AI mean wait", f"{result.ai_mean_wait:.1f}s")
-        m3.metric("Mean improvement", f"{result.mean_improvement_pct:.1f}%")
-        m4.metric("Service level gain", f"{result.ai_service_level_300 - result.random_service_level_300:.1f} pp")
+        m1.metric("Predicted duration", f"{pred_duration / 60:.1f} min")
+        m2.metric("Demand ratio", f"{demand_ratio:.2f}")
+        m3.metric("Surge multiplier", f"{surge:.2f}x")
+        m4.metric("Fare proxy", f"${fare_proxy:.2f}")
+        st.caption(f"Pickup cluster: {pickup_cluster} | Pricing model: {artifacts.get('pricing_model_type')}")
+        st.dataframe(features_used, use_container_width=True, hide_index=True)
 
-        m5, m6, m7, m8 = st.columns(4)
-        m5.metric("Random P95 wait", f"{result.random_p95_wait:.1f}s")
-        m6.metric("AI P95 wait", f"{result.ai_p95_wait:.1f}s")
-        m7.metric("Random utilization", f"{result.random_driver_utilization:.1f}%")
-        m8.metric("AI utilization", f"{result.ai_driver_utilization:.1f}%")
+    importance_rows = artifacts.get("pricing_importance", {}).get("feature_importance", [])
+    if importance_rows:
+        imp_df = pd.DataFrame(importance_rows).head(10)
+        fig_imp = px.bar(
+            imp_df,
+            x="importance_normalized",
+            y="feature",
+            orientation="h",
+            color="importance_normalized",
+            color_continuous_scale="Blues",
+        )
+        _standard_layout(fig_imp, "Pricing Driver Importance", height=410)
+        fig_imp.update_yaxes(categoryorder="total ascending")
+        st.plotly_chart(fig_imp, use_container_width=True)
 
+
+def render_phase2_dispatch(df_clustered: pd.DataFrame, state: dict):
+    _page_intro(
+        "Phase 2 / Dispatch",
+        "Dispatch and Rebalancing",
+        "Translate forecast into repositioning decisions, then validate the strategy with a more realistic simulation based on travel time, service time, and driver availability.",
+    )
+
+    forecast = state["forecast"]
+    rebalancing = state["rebalancing"]
+
+    requests = st.slider("Simulated requests", 500, 9000, 2500, step=250)
+    drivers = st.slider("Available drivers", 80, 1000, 420, step=20)
+    service_mean = st.slider("Mean service time (sec)", 240, 1500, 600, step=30)
+    rebalance_every = st.slider("AI rebalance frequency (requests)", 20, 250, 80, step=10)
+
+    demand_profile = st.radio(
+        "Request demand profile",
+        ["Historical distribution", "Forecast-adjusted distribution"],
+        horizontal=True,
+    )
+
+    counts = dict_from_cluster_series(df_clustered["cluster"], n_clusters=state["n_clusters"])
+    historical_weights = normalize_weights([counts[str(i)] for i in range(state["n_clusters"])])
+    if demand_profile == "Forecast-adjusted distribution" and forecast is not None:
+        demand_weights = normalize_weights(forecast)
+    else:
+        demand_weights = historical_weights
+
+    travel_matrix = estimate_intercluster_travel_time_matrix(df_clustered, n_clusters=state["n_clusters"])
+    transition_matrix = estimate_dropoff_transition_matrix(df_clustered, n_clusters=state["n_clusters"])
+    ai_weights = rebalancing.get("target_weights") if rebalancing else None
+    result = run_dispatch_simulation(
+        demand_weights=demand_weights,
+        num_requests=int(requests),
+        seed=42,
+        travel_time_matrix=travel_matrix,
+        transition_matrix=transition_matrix,
+        num_drivers=int(drivers),
+        service_time_mean_sec=float(service_mean),
+        ai_supply_weights=ai_weights,
+        rebalance_every_n_requests=int(rebalance_every),
+    )
+
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Random mean wait", f"{result.random_mean_wait:.1f}s")
+    m2.metric("AI mean wait", f"{result.ai_mean_wait:.1f}s")
+    m3.metric("Mean improvement", f"{result.mean_improvement_pct:.1f}%")
+    m4.metric("Service level gain", f"{result.ai_service_level_300 - result.random_service_level_300:.1f} pp")
+
+    m5, m6, m7, m8 = st.columns(4)
+    m5.metric("Random P95 wait", f"{result.random_p95_wait:.1f}s")
+    m6.metric("AI P95 wait", f"{result.ai_p95_wait:.1f}s")
+    m7.metric("Random utilization", f"{result.random_driver_utilization:.1f}%")
+    m8.metric("AI utilization", f"{result.ai_driver_utilization:.1f}%")
+
+    left, right = st.columns([1.35, 1])
+    with left:
         hist_df = pd.DataFrame(
             {
                 "wait_time_sec": np.concatenate([result.random_wait_times, result.ai_wait_times]),
@@ -780,11 +963,12 @@ def run_phase2_module(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict)
             opacity=0.7,
             color_discrete_map={"Random baseline": "#f97316", "AI-guided": "#0ea5a6"},
         )
-        _standard_layout(fig_hist, "Dispatch Wait-Time Distribution")
+        _standard_layout(fig_hist, "Dispatch Wait-Time Distribution", height=420)
         st.plotly_chart(fig_hist, use_container_width=True)
 
+    with right:
+        st.markdown("### Rebalancing moves")
         if rebalancing:
-            st.markdown("### Top-3 Cluster Rebalancing Recommendation")
             top_df = pd.DataFrame(rebalancing.get("top_clusters", []))
             if not top_df.empty:
                 top_df["cluster"] = top_df["cluster"].apply(lambda x: f"Cluster {x}")
@@ -794,58 +978,82 @@ def run_phase2_module(df_clustered: pd.DataFrame, kmeans_model, artifacts: dict)
             if not actions_df.empty:
                 actions_df["from_cluster"] = actions_df["from_cluster"].apply(lambda x: f"Cluster {x}")
                 actions_df["to_cluster"] = actions_df["to_cluster"].apply(lambda x: f"Cluster {x}")
-                st.markdown("#### Suggested driver moves")
                 st.dataframe(actions_df, use_container_width=True, hide_index=True)
             else:
                 st.info("No strong relocation needed for this forecast window.")
 
-        travel_df = pd.DataFrame(travel_matrix)
-        travel_df.index = [f"From C{i}" for i in range(n_clusters)]
-        travel_df.columns = [f"To C{i}" for i in range(n_clusters)]
-        fig_t = go.Figure(
-            data=go.Heatmap(
-                z=travel_df.values,
-                x=travel_df.columns.tolist(),
-                y=travel_df.index.tolist(),
-                colorscale="Blues",
-                colorbar=dict(title="Sec"),
-            )
+    travel_df = pd.DataFrame(travel_matrix)
+    travel_df.index = [f"From C{i}" for i in range(state["n_clusters"])]
+    travel_df.columns = [f"To C{i}" for i in range(state["n_clusters"])]
+    fig_t = go.Figure(
+        data=go.Heatmap(
+            z=travel_df.values,
+            x=travel_df.columns.tolist(),
+            y=travel_df.index.tolist(),
+            colorscale="Blues",
+            colorbar=dict(title="Sec"),
         )
-        _standard_layout(fig_t, "Calibrated Inter-Cluster Travel Time Matrix", height=420)
-        st.plotly_chart(fig_t, use_container_width=True)
+    )
+    _standard_layout(fig_t, "Inter-Cluster Travel Time Matrix", height=420)
+    st.plotly_chart(fig_t, use_container_width=True)
 
-    with tabs[3]:
-        st.markdown("### Comprehensive Evaluation")
-        _render_forecast_evaluation_panel(artifacts)
 
-        fc_metrics = artifacts.get("forecast_cluster_metrics", {}).get("clusters", [])
-        if fc_metrics:
-            st.markdown("#### Forecast errors by cluster (hold-out)")
-            mdf = pd.DataFrame(fc_metrics)
-            mdf["cluster"] = mdf["cluster"].apply(lambda x: f"Cluster {x}")
-            st.dataframe(mdf, use_container_width=True, hide_index=True)
+def render_phase2_evaluation(artifacts: dict):
+    _page_intro(
+        "Phase 2 / Evaluation",
+        "Model Evaluation",
+        "This page collects the validation story for forecasting and pricing, including hold-out performance and k-fold stability checks.",
+    )
 
-        st.markdown("#### Pricing metrics (hold-out split)")
-        hold = artifacts.get("pricing_holdout", {})
-        p1, p2, p3, p4 = st.columns(4)
-        p1.metric("MAE", f"{float(hold.get('mae', 0.0)):.2f}")
-        p2.metric("RMSE", f"{float(hold.get('rmse', 0.0)):.2f}")
-        p3.metric("R2", f"{float(hold.get('r2', 0.0)):.3f}")
-        p4.metric("P90 |error|", f"{float(hold.get('abs_error_p90', 0.0)):.2f}")
+    _render_forecast_evaluation_panel(artifacts)
 
-        cv_payload = artifacts.get("training_report", {}).get("pricing", {}).get("cross_validation", {})
-        fold_rows = cv_payload.get("fold_metrics", []) if isinstance(cv_payload, dict) else []
-        if fold_rows:
-            cv_df = pd.DataFrame(fold_rows)
-            fig_cv = px.bar(
-                cv_df,
-                x="fold",
-                y=["mae", "rmse"],
-                barmode="group",
-                color_discrete_sequence=["#1d4ed8", "#0f766e"],
-            )
-            _standard_layout(fig_cv, "Pricing K-Fold Stability", height=360)
-            st.plotly_chart(fig_cv, use_container_width=True)
+    fc_metrics = artifacts.get("forecast_cluster_metrics", {}).get("clusters", [])
+    if fc_metrics:
+        st.markdown("### Forecast errors by cluster")
+        mdf = pd.DataFrame(fc_metrics)
+        mdf["cluster"] = mdf["cluster"].apply(lambda x: f"Cluster {x}")
+        st.dataframe(mdf, use_container_width=True, hide_index=True)
+
+    st.markdown("### Pricing hold-out metrics")
+    hold = artifacts.get("pricing_holdout", {})
+    p1, p2, p3, p4 = st.columns(4)
+    p1.metric("MAE", f"{float(hold.get('mae', 0.0)):.2f}")
+    p2.metric("RMSE", f"{float(hold.get('rmse', 0.0)):.2f}")
+    p3.metric("R2", f"{float(hold.get('r2', 0.0)):.3f}")
+    p4.metric("P90 |error|", f"{float(hold.get('abs_error_p90', 0.0)):.2f}")
+
+    cv_payload = artifacts.get("training_report", {}).get("pricing", {}).get("cross_validation", {})
+    fold_rows = cv_payload.get("fold_metrics", []) if isinstance(cv_payload, dict) else []
+    if fold_rows:
+        cv_df = pd.DataFrame(fold_rows)
+        fig_cv = px.bar(
+            cv_df,
+            x="fold",
+            y=["mae", "rmse"],
+            barmode="group",
+            color_discrete_sequence=["#f59e0b", "#38bdf8"],
+        )
+        _standard_layout(fig_cv, "Pricing K-Fold Stability", height=360)
+        st.plotly_chart(fig_cv, use_container_width=True)
+
+
+def run_phase1_tools(df: pd.DataFrame, model: KMeans | None):
+    _page_intro(
+        "Phase 1 Support",
+        "Phase 1 Tools",
+        "Phase 1 is still available for supporting visuals and baseline analysis, but it now sits behind the main Phase 2 workflow.",
+    )
+    st.markdown(
+        '<div class="phase1-note">Phase 1 is kept as a supporting module for hotspot visualization, clustering comparison, and fleet-efficiency diagnostics. The primary project focus remains Phase 2.</div>',
+        unsafe_allow_html=True,
+    )
+    tabs = st.tabs(["Live Operations", "Research Lab", "Efficiency Analysis"])
+    with tabs[0]:
+        run_live_operations(df, model)
+    with tabs[1]:
+        run_research_lab(df)
+    with tabs[2]:
+        run_efficiency_analysis(df)
 
 
 def main():
@@ -853,22 +1061,28 @@ def main():
         """
 <div class="hero">
   <h1>Intelligent Fleet Allocation System</h1>
-  <p>Phase 1 + Phase 2 unified command dashboard for demand forecasting, pricing intelligence, and dispatch simulation.</p>
+  <p>Phase 2 command dashboard for demand forecasting, dynamic pricing, dispatch simulation, and model evaluation. Phase 1 tools remain available as supporting diagnostics.</p>
   <span class="badge">NSUT B.Tech Project</span>
+  <span class="badge">Phase 2 Focus</span>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
     with st.sidebar:
-        st.markdown('<div class="sidebar-card"><b>Fleet Command</b><br><span class="caption">Operational + Predictive stack</span></div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="sidebar-card"><b>Phase 2 Command</b><br><span class="caption">Forecasting, pricing, simulation, and evaluation</span></div>',
+            unsafe_allow_html=True,
+        )
         view_mode = st.radio(
-            "Module",
+            "Workspace",
             [
-                "Live Operations",
-                "Research Lab",
-                "Efficiency Analysis",
-                "Phase 2 Intelligence",
+                "Phase 2 Overview",
+                "Demand Forecasting",
+                "Dynamic Pricing",
+                "Dispatch & Rebalancing",
+                "Model Evaluation",
+                "Phase 1 Tools",
             ],
         )
 
@@ -889,14 +1103,16 @@ def main():
         df_clustered["cluster"] = 0
         df_clustered["dropoff_cluster"] = 0
 
-    k1, k2, k3, k4 = st.columns(4)
-    k1.metric("Records", f"{len(df):,}")
-    k2.metric("KMeans", kmeans_status)
-    k3.metric("Phase 2 artifacts", "Ready" if phase2_artifacts.get("ready") else "Partial")
-    k4.metric(
-        "Forecast exogenous",
-        ", ".join(FORECAST_EXOGENOUS_COLUMNS[:2]) + " +3",
-    )
+    state = None
+    if kmeans_model is not None:
+        state = build_phase2_state(df_clustered, kmeans_model, phase2_artifacts)
+
+    if view_mode != "Phase 1 Tools":
+        k1, k2, k3, k4 = st.columns(4)
+        k1.metric("Records", f"{len(df):,}")
+        k2.metric("KMeans", kmeans_status)
+        k3.metric("Phase 2 artifacts", "Ready" if phase2_artifacts.get("ready") else "Partial")
+        k4.metric("External signals", ", ".join(FORECAST_EXOGENOUS_COLUMNS[:2]) + " +3")
 
     if phase2_artifacts.get("errors"):
         with st.expander("Artifact diagnostics"):
@@ -906,17 +1122,22 @@ def main():
 
     st.markdown("---")
 
-    if view_mode == "Live Operations":
-        run_live_operations(df, kmeans_model)
-    elif view_mode == "Research Lab":
-        run_research_lab(df)
-    elif view_mode == "Efficiency Analysis":
-        run_efficiency_analysis(df)
+    if view_mode == "Phase 1 Tools":
+        run_phase1_tools(df, kmeans_model)
     else:
         if kmeans_model is None:
             st.error("Phase 2 requires `kmeans_fleet_model.pkl`.")
         else:
-            run_phase2_module(df_clustered, kmeans_model, phase2_artifacts)
+            if view_mode == "Phase 2 Overview":
+                render_phase2_overview(state, phase2_artifacts)
+            elif view_mode == "Demand Forecasting":
+                render_phase2_demand(state)
+            elif view_mode == "Dynamic Pricing":
+                render_phase2_pricing(df_clustered, kmeans_model, phase2_artifacts, state)
+            elif view_mode == "Dispatch & Rebalancing":
+                render_phase2_dispatch(df_clustered, state)
+            else:
+                render_phase2_evaluation(phase2_artifacts)
 
 
 if __name__ == "__main__":
